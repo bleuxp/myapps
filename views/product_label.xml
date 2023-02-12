@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_simple_label" inherit_id="product.report_simple_barcode">
+            <xpath expr="//div" position="replace">
+                <div class="page">
+                    <div class="row mb8">
+                        <div class="col-6" style="padding-left: 10px;">
+                            <img alt="Barcode" t-attf-src="data:image/*;base64,{{product.barcode_image}}" style="width: 60% "/>
+                        </div>
+                        <div class="col-6 float-right mb4" style="margin-top: -5px; margin-right: -0px;">
+                              <strong t-esc="product.name[:15]" style="padding-left: 30px; font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: clip; "/><br/>
+                              <strong t-esc="str('{0:,.2f}'.format(product.weight).replace(',',' ').replace('.', ','))
+                                    + 'g'" style="padding-left: 36px;font-size:12px"/>
+                        </div>
+                    </div>
+                    <p style="page-break-after:always;"/>
+                </div>
+            </xpath>
+
+        </template>
+
+        <template id="report_bijoux_2">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="bijouterie.report_bijoux_label2">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+    <template id="report_bijoux_label2">
+        <div class="row mp0">
+            <div class="col-4  float-right" style="margin-top: -9px;margin-bottom: -6px;">
+                <strong t-esc="product.name[:15]" style="font-size:10px; white-space: nowrap; overflow:hidden; text-overflow: clip; "/><br/>
+                <t t-if="product.weight &gt; 0"><strong t-esc="str('{0:,.2f}'.format(product.weight).replace(',',' ').replace('.', ','))                         + 'g'" style="margin-left: 3px;margin-top: -3px;font-size:8px;float:left"/></t>
+
+            </div>
+
+            <div class="col-4 mp0" style="margin-left: -33px;margin-top: -9px; margin-bottom: -10px; margin-right: 18px;">
+                <img alt="Barcode" t-attf-src="data:image/*;base64,{{product.barcode_image}}" style="width: 124px;height: 25px;float:center"/>
+                <strong t-esc="product.barcode" style="margin-left: 50px;margin-top: -2px;margin-bottom: -6px;font-size:6px;float:left; "/>
+            </div>
+            <div class="col-4 mp0"/>
+        </div>
+        <p style="page-break-after:always;"/>
+    </template>
+
+
+        <template id="report_bijoux_3">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="bijouterie.report_bijoux_label3">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_bijoux_label3">
+        <div class="row mp0">
+
+            <div class="col-4 float-right" style="margin-top: -5px; margin-bottom: -10px;">
+                <img alt="Barcode" t-attf-src="data:image/*;base64,{{product.barcode_image}}" style="width: 48px;float:left"/>
+
+            </div>
+            <div class="col-4 mp0" style="margin-top: -7px;">
+
+                <strong t-esc="product.name[:15]" style="font-size:10px; white-space: nowrap; overflow:hidden; text-overflow: clip; "/><br/>
+                <t t-if="product.weight > 0"><strong t-esc="str('{0:,.2f}'.format(product.weight).replace(',',' ').replace('.', ','))
+                        + 'g'" style="font-size:10px;float:left"/></t>
+            </div>
+            <div class="col-4 mp0"></div>
+        </div>
+        <p style="page-break-after:always;"/>
+    </template>
+    </data>
+</odoo>

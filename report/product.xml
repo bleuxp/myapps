@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="labelbijou1" model="report.paperformat">
+            <field name="name">Etiquettebijou1</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">11</field>
+            <field name="page_width">45</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="labelbijou2" model="report.paperformat">
+            <field name="name">Etiquettebijou2</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">8</field>
+            <field name="page_width">60</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+    <report
+            id="report_bijoux2"
+            string="Codebarre Bijoux 8x60"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="bijouterie.report_bijoux_2"
+            file="bijouterie.report_bijoux_2"
+            paperformat="bijouterie.labelbijou2"
+            print_report_name="'Bijoux %s' % (object.name)"
+    />
+
+    <report
+            id="report_bijoux3"
+            string="QRCode Bijoux 8x60"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="bijouterie.report_bijoux_3"
+            file="bijouterie.report_bijoux_3"
+            paperformat="bijouterie.labelbijou2"
+            print_report_name="'Bijoux %s' % (object.name)"
+    />
+
+    </data>
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.only.form</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='barcode']" position="after">
+                    <button string="Générer" class="btn btn-link" type="object" name="generate_new_barcode" attrs="{'invisible': [('barcode', '!=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                        <button string="MAJ Image Codebarre" type="object" name="new_barcode_image" class="oe_highlight"/>
+                </header>
+                <xpath expr="//label[@for='standard_price']" position="before">
+
+                    <field name="categ_price"/>
+                    <field name="uniq_price"/>
+                    <label for="weight"/>
+                    <div class="o_row" name="weight" attrs="{'invisible':[('product_variant_count', '>', 1), ('is_product_variant', '=', False)]}">
+                        <field name="weight"/>
+                        <field name="weight_uom_name"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//div[@name='standard_price_uom']" position="after">
+                    <field name="purchase_price_by_gramme"/>
+                    <field name="barcode_image" widget="image" class="float-left oe_avatar" readonly="0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_procurment" model="ir.ui.view">
+            <field name="name">product.template.procurment</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='responsible_id']" position="replace">
+                        <field name="responsible_id" invisible="1"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_pos_category_form_view" model="ir.ui.view">
+        <field name="name">pos.category.form</field>
+        <field name="model">pos.category</field>
+        <field name="priority">5</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="price_by_weight"/>
+                           <!--attrs="{'invisible': [('parent_id', '=', False)]}"/> -->
+                </xpath>
+        </field>
+    </record>
+
+
+
+
+    <menuitem id="menu_products_pos_category_1"
+              name="Categorie de produits"
+        action="point_of_sale.product_pos_category_action"
+        parent="point_of_sale.pos_config_menu_catalog"
+        sequence="1"/>
+
+
+
+    <record model="ir.ui.view" id="sale_price_purchase_order_line_form">
+        <field name="name">sale_price_purchase.order.line.form</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form2"/>
+        <field name="arch" type="xml">
+            <field name="price_unit" position="before">
+                <field name="weight"/>
+                <field name="gramme_price" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="sale_price_purchase_order_line_tree">
+        <field name="name">sale_price_purchase.order.line.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="price_unit" position="before">
+                <field name="weight"/>
+                <field name="gramme_price" optional="show"/>
+
+            </field>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="sale_price_purchase_order_form">
+         <field name="name">sale_price_purchase.order.form</field>
+         <field name="model">purchase.order</field>
+         <field name="inherit_id" ref="purchase.purchase_order_form"/>
+         <field name="arch" type="xml">
+              <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+
+                <field name="weight"/>
+                <field name="gramme_price" optional="show"/>
+
+              </xpath>
+         </field>
+     </record>
+</odoo>
